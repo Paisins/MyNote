@@ -1,2 +1,13 @@
 # 忽略idea文件
 .idea
+
+.vscode
+.DS_Store
+__pycache__
+
+# go相关
+*.sum
+*.mod
+
+# vscode工作区
+*.code-workspace

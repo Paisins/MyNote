@@ -163,5 +163,5 @@ git stahs pop
 假设希望忽略的文件或者目录还没有提交以及被缓存，就可以先提交gitignore文件；如果已经被追踪
 ```
 # 先清空缓存，然后在添加以及提交等等
-git rm -r --cached .
+git rm -r --cached [文件或者目录]
 ```
