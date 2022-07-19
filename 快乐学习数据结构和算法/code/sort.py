@@ -153,13 +153,72 @@ def select_sort(data: list):
     return data
 
 
+def counting_sort(data: list):
+    """计数排序"""
+    if not data:
+        return data
+
+    # 获取最大值和最小值
+    min_value, max_value = data[0], data[0]
+    for i in data[1:]:
+        if i > max_value:
+            max_value = i
+        elif i < min_value:
+            min_value = i
+
+    counting = [None] * (max_value - min_value + 1)
+    for i in data:
+        if counting[i - min_value] is None:
+            counting[i - min_value] = 0
+        counting[i - min_value] += 1
+
+    index = 0
+    new_data = list()
+    for i in counting:
+        if i is None:
+            continue
+        while i:
+            new_data.append(index + min_value)
+            i -= 1
+        index += 1
+    return new_data
+
+
+def radix_sort(data: list):
+    """基数排序"""
+    if not data:
+        return data
+
+    max_value = data[0]
+    for i in data[1:]:
+        if i > max_value:
+            max_value = i
+
+    digit_level = 1
+    digit_count = len(str(int(max_value)))
+    for i in range(digit_count):
+        bucket = [list() for _ in range(10)]
+        for v in data:
+            index = (v // digit_level) % 10
+            bucket[index].append(v)
+
+        index = 0
+        for sub_bucket in bucket:
+            for j in sub_bucket:
+                data[index] = j
+                index += 1
+
+        digit_level *= 10
+    return data
+
+
 def main():
-    example = [1, 3, 2, 0, 9, 5, 4, 7, 8, 6, 4]
+    example = [1, 3, 2, 0, 9, 5, 4, 7, 8, 6, 4, 1433, 1322]
     print('example', example)
     # 冒泡排序
     # print(bubble_sort(example))
     # 插入排序
-    print(insert_sort(example))
+    # print(insert_sort(example))
     # 归并排序
     # print(merge_sort(example))
     # 快速排序
@@ -168,6 +227,10 @@ def main():
     # print(shell_sort(example))
     # 选择排序
     # print(select_sort(example))
+    # 计数排序
+    # print(counting_sort(example))
+    # 基数排序
+    print(radix_sort(example))
 
 
 if __name__ == '__main__':
